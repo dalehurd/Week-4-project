@@ -1,9 +1,9 @@
-x <- 3+2
-print (x)
+
 print ("geting started")
 best <- function(state, outcome) {
   ## Read outcome data
   data <- read.csv("outcome-of-care-measures.csv", colClasses = "character")
+  
   fd   <- as.data.frame(cbind(data[, 2],   # hospital
                               data[, 7],   # state
                               data[, 11],  # heart attack
