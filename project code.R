@@ -26,6 +26,4 @@ best <- function(state, outcome) {
   return(output)
 }
 
-# example output:
-best("SC", "heart attack")  
-## new
+# example output: cleanup
