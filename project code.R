@@ -13,7 +13,7 @@ best <- function(state, outcome) {
  
   if(!is.element (state,subdata[, "state"])) {  ## Check for valid state name
     stop('invalid state')
- 
+
   } else if(!is.element(outcome, c("heart attack", "heart failure", "pneumonia"))){  ## Check for valid outcome
     stop('invalid outcome')
   } else {
@@ -23,10 +23,12 @@ best <- function(state, outcome) {
     min_val <- min(outcome_values, na.rm = TRUE)  ## finding the minimum value for specified outcome
     result  <- state_data_table[, "hospital"][which(outcome_values == min_val)] ## finding all locations with minimum values
   
-    output  <- result[order(result)]  ##Accommodating for ties
+    output  <- result[order(result)]  ##Alphabetizing
   }
 
-  return(output)
+ 
+  return(output)[1] ##returning first element of alphabetized list
+  
 }
 
 # example output: cleanup
