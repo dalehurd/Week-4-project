@@ -10,24 +10,27 @@ rankall <- function(outcome, num = "best"){
   colnames(subdata) <- c("hospital", "state", "heart attack", "heart failure", "pneumonia")
   subdata[, eval(outcome)] <- as.numeric(subdata[, eval(outcome)])
   
-  ## Check that state and outcome are valid
+  ## Check that state and outcome are valid .
   
-  if (!outcome %in% c("heart attack", "heart failure", "pneumonia")){
+    if(!is.element(outcome, c("heart attack", "heart failure", "pneumonia"))){  ## Check for valid outcome
     stop('invalid outcome')
-  } else if (is.numeric(num)) {
-    by_state <- with(fd, split(fd, state))
+    } else if (is.numeric(num)) {
+    by_state <- with(subdata, split(subdata, state))
     ordered  <- list()
     for (i in seq_along(by_state)){
       by_state[[i]] <- by_state[[i]][order(by_state[[i]][, eval(outcome)], 
                                            by_state[[i]][, "hospital"]), ]
+      #
       ordered[[i]]  <- c(by_state[[i]][num, "hospital"], by_state[[i]][, "state"][1])
+      #print (ordered[[i]])
+      #stop
     }
     result <- do.call(rbind, ordered)
     output <- as.data.frame(result, row.names = result[, 2], stringsAsFactors = FALSE)
     names(output) <- c("hospital", "state")
   } else if (!is.numeric(num)) {
     if (num == "best") {
-      by_state <- with(fd, split(fd, state))
+      by_state <- with(subdata, split(subdata, state))
       ordered  <- list()
       for (i in seq_along(by_state)){
         by_state[[i]] <- by_state[[i]][order(by_state[[i]][, eval(outcome)], 
@@ -38,7 +41,7 @@ rankall <- function(outcome, num = "best"){
       output <- as.data.frame(result, stringsAsFactors = FALSE)
       rownames(output) <- output[, 2]
     } else if (num == "worst") {
-      by_state <- with(fd, split(fd, state))
+      by_state <- with(subdata, split(subdata, state))
       ordered  <- list()
       for (i in seq_along(by_state)){
         by_state[[i]] <- by_state[[i]][order(by_state[[i]][, eval(outcome)], 
