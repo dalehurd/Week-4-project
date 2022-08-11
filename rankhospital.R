@@ -42,7 +42,7 @@ rankhospital <- function(state, outcome, rank = "best"){
       stop('invalid rank')
     }
   }
-  
+  #
   return(output)
 }
   #
