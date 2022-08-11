@@ -18,8 +18,8 @@ rankhospital <- function(state, outcome, rank = "best"){
     
     state_index <<- which(subdata[, "state"] == state)  ## index values of global dataset for particular state
     state_data_table <<- subdata[state_index, ]    ## extracting  all data for the called state
-    state_data_table[,eval(outcome)] <- as.numeric (state_data_table[,eval(outcome)]) ##Assure numeric values for outcome
     state_data_table <- state_data_table[order(state_data_table[, eval(outcome)], state_data_table[, "hospital"]),]
+    #state_data_table <- state_data_table[order(state_data_table[, eval(outcome)]),] ties not alhabetized
     output <- state_data_table[, "hospital"][rank]
    
 
